@@ -9,27 +9,26 @@ from translate import Translate
 
 class CLI():
     def __init__(self):
+
         self.tr = Translate()
 
         self.options = [
-            ("translate_en_to_ru", self.translate_en_to_ru),
-            ("translate_ru_to_en", self.translate_ru_to_en),
+            ("translate", self.translate),
             ("quit", Menu.CLOSE)
         ]
 
         self.main_menu = Menu(
             options=self.options,
-            title="main_menu",
-            prompt='>',
+            title='main_menu',
+            message='',
+            prompt='> ',
+            auto_clear=True
         )
 
-    def translate_en_to_ru(self):
-        word = input("word: ")
-        return self.tr.translate_en_to_ru(word)
-
-    def translate_ru_to_en(self):
-        word = input("слово: ")
-        return self.tr.translate_ru_to_en(word)
+    def translate(self):
+        origin_text = input("input text: ")
+        translated = self.tr.translate(origin_text)
+        self.main_menu.set_message("translated: " + translated)
 
     def run(self):
         self.main_menu.open()

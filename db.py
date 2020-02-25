@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("englearn.db")
+conn = sqlite3.connect("dictionary.db")
 cur = conn.cursor()
 
 sql = '''\
