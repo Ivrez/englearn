@@ -6,10 +6,10 @@ from builtins import object
 from menu import Menu
 
 from translate import Translate
+from db import DefaultDB
 
 class CLI():
     def __init__(self):
-
         self.tr = Translate()
 
         self.options = [
