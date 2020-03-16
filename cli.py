@@ -6,7 +6,6 @@ from builtins import object
 from menu import Menu
 
 from translate import Translate
-from db import DefaultDB
 
 class CLI():
     def __init__(self):
@@ -26,9 +25,16 @@ class CLI():
         )
 
     def translate(self):
-        origin_text = input("input text: ")
-        translated = self.tr.translate(origin_text)
-        self.main_menu.set_message("translated: " + translated)
+        while True:
+            origin_text = input("input text: ")
+            if origin_text == 'quit':
+                return
+            try:
+                translated = self.tr.translate(origin_text)
+                print("translated: " + translated)
+                #self.main_menu.set_message("translated: " + translated)
+            except Exception:
+                print("TRANSLATION ERROR")
 
     def run(self):
         self.main_menu.open()
