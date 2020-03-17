@@ -59,8 +59,14 @@ class DefaultDB():
         self.conn.commit()
 
     def update_word_in_dictionary(self, id, en, ru):
-        query = "UPDATE words SET word_en = ?, word_ru = ? WHERE id = ?"
+        query = "UPDATE words SET word_en = ?, word_ru = ? WHERE _id = ?"
         data = (en, ru, id,)
+        self.cur.execute(query, data)
+        self.conn.commit()
+
+    def delete_word_from_dictionary(self, id, en, ru):
+        query = "DELETE FROM words WHERE _id = ?"
+        data = (id,)
         self.cur.execute(query, data)
         self.conn.commit()
 

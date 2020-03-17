@@ -11,18 +11,30 @@ class CLI():
     def __init__(self):
         self.tr = Translate()
 
-        self.options = [
+        self.main_options = [
             ("translate", self.translate),
+            ("show dict", self.show_dictionary),
             ("show dict", self.show_dictionary),
             ("quit", Menu.CLOSE)
         ]
+        self.delete_options = [
+            ("delete word", self.delete_word),
+            ("quit", Menu.CLOSE)
+        ]
+
 
         self.main_menu = Menu(
-            options=self.options,
+            options=self.main_options,
             title='main_menu',
             message='',
             prompt='> ',
             auto_clear=True
+        )
+        self.delete_menu = Menu(
+            options=self.delete_options,
+            title='delete_word',
+            message='',
+            prompt='>',
         )
 
     def translate(self):
@@ -35,19 +47,29 @@ class CLI():
                 print("translated: " + translated)
                 #self.main_menu.set_message("translated: " + translated)
             except Exception as e:
-                print("Translation Error: ", e)
+                print("CLI Translation Error: ", e)
 
     def show_dictionary(self):
         while True:
             try:
                 words = self.tr.show_dictionary()
                 for i in words:
-                    #print(i)
                     print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
                 input()
                 return
             except Exception as e:
-                self.main_menu.set_message("Show Dictionary Error: " + str(e))
+                self.main_menu.set_message("CLI show dictionary Error: " + str(e))
+
+    def delete_word(self):
+        while True:
+            try:
+                words = self.tr.show_dictionary()
+                for i in words:
+                    print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
+                input()
+                return
+            except Exception as e:
+                self.main_menu.set_message("CLI delete word Error: " + str(e))
 
     def run(self):
         self.main_menu.open()
