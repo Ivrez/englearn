@@ -37,7 +37,7 @@ class DefaultDB():
             FOREIGN KEY(word_group_id) REFERENCES words(word_group_id)
         );
         CREATE TABLE IF NOT EXISTS rules (
-            _id INTEGER PRIMARY KEY,
+            _id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
             rule TEXT NOT NULL
         );
@@ -51,20 +51,20 @@ class DefaultDB():
         print("DB successfully created")
         return
 
-    def add_word_to_dictionary(self, en, ru):
+    def add_word(self, en, ru):
         ts = datetime.datetime.now().timestamp()
         query = "INSERT INTO words (word_en, word_ru, time_added) VALUES(?,?,?)"
         data = (en, ru, int(ts),)
         self.cur.execute(query, data)
         self.conn.commit()
 
-    def update_word_in_dictionary(self, id, en, ru):
+    def update_word(self, id, en, ru):
         query = "UPDATE words SET word_en = ?, word_ru = ? WHERE _id = ?"
         data = (en, ru, id,)
         self.cur.execute(query, data)
         self.conn.commit()
 
-    def delete_word_from_dictionary(self, id):
+    def delete_word(self, id):
         query = "DELETE FROM words WHERE _id = ?"
         data = (id,)
         self.cur.execute(query, data)
@@ -76,7 +76,7 @@ class DefaultDB():
         self.cur.execute(query, data)
         return self.cur.fetchone()
 
-    def get_dictionary(self):
+    def get_full_dict(self):
         query = "SELECT * FROM words"
         self.cur.execute(query)
         return self.cur.fetchall()

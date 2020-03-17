@@ -50,7 +50,7 @@ class CLI():
     def show_dictionary(self):
         while True:
             try:
-                words = self.tr.show_dictionary()
+                words = self.tr.get_full_dict()
                 for i in words:
                     print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
                 input()
@@ -62,7 +62,7 @@ class CLI():
         while True:
             try:
                 print()
-                words = self.tr.show_dictionary()
+                words = self.tr.get_full_dict()
                 for i in words:
                     print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
                 word_id = input("input word id: ")

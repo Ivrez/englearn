@@ -21,9 +21,9 @@ class Translate():
         try:
             translated = self.translator.translate(text, dest=dest, src=src).text
             if src == 'ru':
-                self.db.add_word_to_dictionary(translated, text)
+                self.db.add_word(translated, text)
             else:
-                self.db.add_word_to_dictionary(text, translated)
+                self.db.add_word(text, translated)
         except Exception as err:
             print("Translate Error :", err)
             return str(err)
@@ -31,9 +31,9 @@ class Translate():
         return translated
 
 
-    def show_dictionary(self):
+    def get_full_dict(self):
         try:
-            return self.db.get_dictionary()
+            return self.db.get_full_dict()
         except Exception as err:
             return str(err)
 
@@ -45,6 +45,6 @@ class Translate():
 
     def delete_word(self, id):
         try:
-            return self.db.delete_word_from_dictionary(id)
+            return self.db.delete_word(id)
         except Exception as err:
             return str(err)
