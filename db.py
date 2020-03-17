@@ -12,11 +12,11 @@ class DefaultDB():
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='rules'",
         ]
 
-        res = []
+        check_if_table_exists_res = []
         for i in queries:
             self.cur.execute(i)
-            res.append(self.cur.fetchone())
-        if not None in res:
+            check_if_table_exists_res.append(self.cur.fetchone())
+        if not None in check_if_table_exists_res:
             return
 
         sql = '''\
@@ -56,13 +56,15 @@ class DefaultDB():
         query = "INSERT INTO words (word_en, word_ru, time_added) VALUES(?,?,?)"
         data = (en, ru, int(ts),)
         self.cur.execute(query, data)
+        self.conn.commit()
 
-    def update_word_to_dictionary(self, id, en, ru):
+    def update_word_in_dictionary(self, id, en, ru):
         query = "UPDATE words SET word_en = ?, word_ru = ? WHERE id = ?"
         data = (en, ru, id,)
         self.cur.execute(query, data)
+        self.conn.commit()
 
-    def show_dictionary(self):
+    def get_dictionary(self):
         query = "SELECT * FROM words"
         self.cur.execute(query)
-        print(self.cur.fetchone())
+        return self.cur.fetchall()

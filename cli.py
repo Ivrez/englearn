@@ -13,6 +13,7 @@ class CLI():
 
         self.options = [
             ("translate", self.translate),
+            ("show dict", self.show_dictionary),
             ("quit", Menu.CLOSE)
         ]
 
@@ -33,8 +34,20 @@ class CLI():
                 translated = self.tr.translate(origin_text)
                 print("translated: " + translated)
                 #self.main_menu.set_message("translated: " + translated)
-            except Exception:
-                print("TRANSLATION ERROR")
+            except Exception as e:
+                print("Translation Error: ", e)
+
+    def show_dictionary(self):
+        while True:
+            try:
+                words = self.tr.show_dictionary()
+                for i in words:
+                    #print(i)
+                    print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
+                input()
+                return
+            except Exception as e:
+                self.main_menu.set_message("Show Dictionary Error: " + str(e))
 
     def run(self):
         self.main_menu.open()
