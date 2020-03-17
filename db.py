@@ -64,11 +64,17 @@ class DefaultDB():
         self.cur.execute(query, data)
         self.conn.commit()
 
-    def delete_word_from_dictionary(self, id, en, ru):
+    def delete_word_from_dictionary(self, id):
         query = "DELETE FROM words WHERE _id = ?"
         data = (id,)
         self.cur.execute(query, data)
         self.conn.commit()
+
+    def get_word(self, id):
+        query = "SELECT * FROM words where _id = ?"
+        data = (id,)
+        self.cur.execute(query, data)
+        return self.cur.fetchone()
 
     def get_dictionary(self):
         query = "SELECT * FROM words"

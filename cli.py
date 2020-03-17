@@ -11,30 +11,28 @@ class CLI():
     def __init__(self):
         self.tr = Translate()
 
-        self.main_options = [
-            ("translate", self.translate),
-            ("show dict", self.show_dictionary),
-            ("show dict", self.show_dictionary),
-            ("quit", Menu.CLOSE)
-        ]
         self.delete_options = [
             ("delete word", self.delete_word),
             ("quit", Menu.CLOSE)
         ]
-
-
+        self.delete_menu = Menu(
+            options=self.delete_options,
+            title='delete_word',
+            message='',
+            prompt='>',
+        )
+        self.main_options = [
+            ("translate", self.translate),
+            ("show dict", self.show_dictionary),
+            ("delete word", self.delete_menu.open),
+            ("quit", Menu.CLOSE)
+        ]
         self.main_menu = Menu(
             options=self.main_options,
             title='main_menu',
             message='',
             prompt='> ',
             auto_clear=True
-        )
-        self.delete_menu = Menu(
-            options=self.delete_options,
-            title='delete_word',
-            message='',
-            prompt='>',
         )
 
     def translate(self):
@@ -58,18 +56,25 @@ class CLI():
                 input()
                 return
             except Exception as e:
-                self.main_menu.set_message("CLI show dictionary Error: " + str(e))
+                print("CLI show dictionary Error: " + str(e))
 
     def delete_word(self):
         while True:
             try:
+                print()
                 words = self.tr.show_dictionary()
                 for i in words:
                     print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
+                word_id = input("input word id: ")
+                if word_id == 'q':
+                    return
+                int(word_id)
+                word = self.tr.get_word(word_id)
+                self.tr.delete_word(word_id)
+                print("word  '{}':'{}'  with  id '{}'  deleted".format(word[1], word[2], word[0]))
                 input()
-                return
             except Exception as e:
-                self.main_menu.set_message("CLI delete word Error: " + str(e))
+                print("CLI delete word Error: " + str(e))
 
     def run(self):
         self.main_menu.open()

@@ -37,7 +37,13 @@ class Translate():
         except Exception as err:
             return str(err)
 
-    def delete_from_dictionary(self, id):
+    def get_word(self, id):
+        try:
+            return self.db.get_word(id)
+        except Exception as err:
+            return str(err)
+
+    def delete_word(self, id):
         try:
             return self.db.delete_word_from_dictionary(id)
         except Exception as err:
