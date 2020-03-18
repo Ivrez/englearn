@@ -4,7 +4,7 @@ import datetime
 
 class DefaultDB():
     def __init__(self):
-        self.conn = sqlite3.connect("dictionary.db")
+        self.conn = sqlite3.connect("/home/ivrez/dev/englearn/dictionary.db")
         self.cur = self.conn.cursor()
         queries = [
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='words'",
