@@ -2,9 +2,11 @@ import sqlite3
 import sys
 import datetime
 
+from conf.conf import path_to_db
+
 class DefaultDB():
     def __init__(self):
-        self.conn = sqlite3.connect("/home/ivrez/dev/englearn/dictionary.db")
+        self.conn = sqlite3.connect(path_to_db + "dictionary.db")
         self.cur = self.conn.cursor()
         queries = [
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='words'",
