@@ -5,6 +5,7 @@ from builtins import input
 from builtins import object
 from menu import Menu
 
+from datetime import datetime
 from translate import Translate
 
 class CLI():
@@ -52,7 +53,9 @@ class CLI():
             try:
                 words = self.tr.get_full_dict()
                 for i in words:
-                    print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
+                    ts = int(i[3])
+                    time = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+                    print("{} ({} :: {}) -- {}".format(i[0], i[1], i[2], time))
                 input()
                 return
             except Exception as e:
@@ -64,7 +67,9 @@ class CLI():
                 print()
                 words = self.tr.get_full_dict()
                 for i in words:
-                    print("{} {} {} {}".format(i[0], i[1], i[2], i[3]))
+                    ts = int(i[3])
+                    time = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+                    print("{} ({} :: {}) -- {}".format(i[0], i[1], i[2], time))
                 word_id = input("input word id: ")
                 if word_id == 'q':
                     return
