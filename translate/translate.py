@@ -1,6 +1,6 @@
 from googletrans import Translator
 
-from db import DefaultDB
+from db.db import DefaultDB
 
 class Translate():
 

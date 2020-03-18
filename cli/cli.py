@@ -6,7 +6,7 @@ from builtins import object
 from menu import Menu
 
 from datetime import datetime
-from translate import Translate
+from translate.translate import Translate
 
 class CLI():
     def __init__(self):
