@@ -8,7 +8,7 @@ class Translate():
         self.translator = Translator()
         self.db = DefaultDB()
 
-    def translate(self, text):
+    def translate(self, text, add_to_dict=False):
         dest = 'ru'
         src = 'en'
 
@@ -19,17 +19,16 @@ class Translate():
             dest = 'en'
 
         try:
-            translated = self.translator.translate(text, dest=dest, src=src).text
-            if src == 'ru':
-                self.db.add_word(translated, text)
-            else:
-                self.db.add_word(text, translated)
+            translated = self.translator.translate(text, dest=dest, src=src)
+            if add_to_dict:
+                if src == 'ru':
+                    self.db.add_word(translated.text, text)
+                else:
+                    self.db.add_word(text, translated.text)
         except Exception as err:
-            print("Translate Error :", err)
-            return str(err)
+            print("Translate Error : " + str(err))
 
         return translated
-
 
     def get_full_dict(self):
         try:

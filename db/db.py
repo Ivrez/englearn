@@ -11,6 +11,7 @@ class DefaultDB():
         queries = [
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='words'",
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='word_groups'",
+            "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='words__word_groups'",
             "SELECT 'ok' FROM sqlite_master WHERE type='table' AND name='rules'",
         ]
 
@@ -32,7 +33,7 @@ class DefaultDB():
             _id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL
         );
-        CREATE TABLE words__word_groups (
+        CREATE TABLE IF NOT EXISTS words__word_groups (
             word_id INTEGER,
             word_group_id INTEGER,
             FOREIGN KEY(word_id) REFERENCES words(word_id),

@@ -42,11 +42,10 @@ class CLI():
             if origin_text == 'quit':
                 return
             try:
-                translated = self.tr.translate(origin_text)
-                print("translated: " + translated)
-                #self.main_menu.set_message("translated: " + translated)
-            except Exception as e:
-                print("CLI Translation Error: ", e)
+                translated = self.tr.translate(origin_text, True)
+                print("translated: " + translated.text)
+            except Exception as err:
+                print("CLI Translation Error: " + str(err))
 
     def show_dictionary(self):
         while True:
@@ -58,8 +57,8 @@ class CLI():
                     print("{} ({} :: {}) -- {}".format(i[0], i[1], i[2], time))
                 input()
                 return
-            except Exception as e:
-                print("CLI show dictionary Error: " + str(e))
+            except Exception as err:
+                print("CLI show dictionary Error: " + str(err))
 
     def delete_word(self):
         while True:
