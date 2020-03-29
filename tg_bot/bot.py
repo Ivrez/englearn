@@ -1,6 +1,7 @@
 import os
 import subprocess
 import logging
+import re
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -29,7 +30,6 @@ help_message = ''' \
     ivrez's english learing bot.
     available commands:
     /start - start bot interaction
-    /help - get r̶e̶k̶t̶ help
     /translate - translate word using google api
     /search - search words in local dict
     /show_dict - show all words in local dict
@@ -81,8 +81,31 @@ async def process_translate(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(lambda c: c.data == 'add_btn', state="*")
 async def process_callback_add_to_dictionary(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
+    src_lang = 'en'
+    dest_lang = 'ru'
     text = str(callback_query.message.text)
-    print("TEXT: " + text)
+    li = re.split(" |\n", text)
+    if li[0] == 'ru:':
+        src_lang = 'ru'
+        dest_lang = 'en'
+    li.pop(0)
+    print(li[0])
+
+    stop = dest_lang + ':'
+    src_text = ''
+    stop_i = 0
+    for i, word in enumerate(li):
+        if word == stop:
+            stop_i = i+1
+            break
+        src_text += word + ' '
+
+    dest_text = ' '.join(li[stop_i:])
+
+    print("LIST:")
+    print(li)
+    print(src_lang, dest_lang)
+    print(src_text, dest_text)
     await bot.send_message(callback_query.from_user.id, text)
 
 @dp.callback_query_handler(lambda c: c.data == 'quit_btn', state="*")
