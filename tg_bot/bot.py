@@ -102,11 +102,14 @@ async def process_callback_add_to_dictionary(callback_query: types.CallbackQuery
 
     dest_text = ' '.join(li[stop_i:])
 
-    print("LIST:")
-    print(li)
-    print(src_lang, dest_lang)
-    print(src_text, dest_text)
-    await bot.send_message(callback_query.from_user.id, text)
+    #print("LIST:")
+    #print(li)
+    #print(src_lang, ' : ', src_text)
+    #print('\n')
+    #print(dest_lang, ' : ', dest_text)
+    tr.add_word(src_text, dest_text) if src_lang == 'en' else tr.add_word(dest_text, src_text)
+
+    await bot.send_message(callback_query.from_user.id, 'words added to dictionary')
 
 @dp.callback_query_handler(lambda c: c.data == 'quit_btn', state="*")
 async def process_callback_quit(callback_query: types.CallbackQuery, state: FSMContext):
