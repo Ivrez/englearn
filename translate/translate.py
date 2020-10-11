@@ -3,7 +3,6 @@ from googletrans import Translator
 from db.db import DefaultDB
 
 class Translate():
-
     def __init__(self):
         self.translator = Translator()
         self.db = DefaultDB()
@@ -23,7 +22,6 @@ class Translate():
         if lang.lang in ['ru', 'bg', 'tj', 'sr', 'uk']:
             src = 'ru'
             dest = 'en'
-
         try:
             translated = self.translator.translate(text, dest=dest, src=src)
             if add_to_dict:
