@@ -6,7 +6,10 @@ from bson.objectid import ObjectId
 
 class DefaultMongoDB():
     def __init__(self):
-        conn = ''
+        user = ''
+        passwd = ''
+        hostname = ''
+        conn = 'mongodb+srv://' + user + ':' + passwd + '@' + hostname
 
         client = MongoClient(conn)
         #client = MongoClient(conn, ssl_cert_reqs=ssl.CERT_NONE)
