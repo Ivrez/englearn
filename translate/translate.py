@@ -1,11 +1,15 @@
+import sys
+
 from googletrans import Translator
 
 from db.db import DefaultDB
+from db_mongo.db import DefaultMongoDB
 
 class Translate():
     def __init__(self):
         self.translator = Translator()
-        self.db = DefaultDB()
+        self.db = DefaultMongoDB()
+        #self.db = DefaultDB()
 
     def add_word(self, en, ru):
         try:
@@ -31,6 +35,8 @@ class Translate():
                     self.add_word(text, translated.text)
         except Exception as err:
             print("Translate Error : " + str(err))
+            sys.exit()
+
 
         return translated
 

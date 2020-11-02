@@ -51,10 +51,8 @@ class CLI():
         while True:
             try:
                 words = self.tr.get_full_dict()
-                for i in words:
-                    ts = int(i[3])
-                    time = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-                    print("{} ({} :: {}) -- {}".format(i[0], i[1], i[2], time))
+                for word in words:
+                    print(word)
                 input()
                 return
             except Exception as err:
@@ -65,14 +63,11 @@ class CLI():
             try:
                 print()
                 words = self.tr.get_full_dict()
-                for i in words:
-                    ts = int(i[3])
-                    time = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-                    print("{} ({} :: {}) -- {}".format(i[0], i[1], i[2], time))
+                for document in words:
+                    print(document)
                 word_id = input("input word id: ")
-                if word_id == 'q':
+                if word_id == 'quit':
                     return
-                int(word_id)
                 word = self.tr.get_word(word_id)
                 self.tr.delete_word(word_id)
                 print("word  '{}':'{}'  with  id '{}'  deleted".format(word[1], word[2], word[0]))
